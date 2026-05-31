@@ -4,20 +4,20 @@ import { FiGithub, FiExternalLink } from 'react-icons/fi'
 const projects = [
   {
     featured: true,
-    title: 'TaskFine',
+    title: 'Personal Portofolio',
+    desc: 'Developed and deployed a responsive personal portfolio website to showcase projects, technical skills, certifications, and professional experiences.',
+    tech: ['React', 'JavaScript', 'Tailwind CSS'],
+    github: 'porto-zhofran.vercel.app',
+    demo: null,
+  },
+  {
+    featured: false,
+    title: 'Taskfine',
     desc: 'Designed a task management application that leverages AI to help users organize, prioritize, and manage tasks more efficiently.',
     tech: ['Figma'],
     github: 'https://www.figma.com/proto/h2lI7pgRUxDzzXliWzuMRQ/YAUDA-AJE-FINDIT?node-id=472-2718&t=O35l0UJIIfsxolaO-1&scaling=scale-down&content-scaling=fixed&page-id=41%3A132&starting-point-node-id=243%3A958&show-proto-sidebar=1',
     demo: null,
   },
-//   {
-//     featured: false,
-//     title: 'Motorcycle Sales System',
-//     desc: 'A desktop-based sales management system for motorcycle dealerships built with Java.',
-//     tech: ['Java', 'MySQL'],
-//     github: 'https://github.com/muhammadzhofran',
-//     demo: null,
-//   },
 //   {
 //     featured: false,
 //     title: 'Store Sales System',
