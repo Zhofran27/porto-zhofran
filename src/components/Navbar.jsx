@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import profile from '../assets/profile.jpg'
 
 const navLinks = [
   { label: 'About', href: '#about' },
@@ -38,7 +39,7 @@ function Navbar() {
         {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <img
-            src="/src/assets/profile.jpg"
+            src={profile}
             alt="Muhammad Zhofran"
             style={{
             width: '32px',
