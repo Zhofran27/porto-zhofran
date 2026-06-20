@@ -203,7 +203,7 @@ function Hero() {
               height: '320px',
               borderRadius: '50%',
               objectFit: 'cover',
-              objectPosition: 'top',
+              objectPosition: 'center',
               border: '2px solid rgba(255,255,255,0.1)',
               position: 'relative',
               zIndex: 1,

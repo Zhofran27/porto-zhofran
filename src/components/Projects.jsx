@@ -1,5 +1,8 @@
 import { motion } from 'framer-motion'
 import { FiGithub, FiExternalLink } from 'react-icons/fi'
+import imgPorto from '../assets/project-porto.png'
+import imgTaskfine from '../assets/project-taskfine.png'
+import imgBookshelf from '../assets/project-bookshelf.png'
 
 const projects = [
   {
@@ -7,8 +10,9 @@ const projects = [
     title: 'Personal Portofolio',
     desc: 'Developed and deployed a responsive personal portfolio website to showcase projects, technical skills, certifications, and professional experiences.',
     tech: ['React', 'JavaScript', 'Tailwind CSS'],
-    github: 'porto-zhofran.vercel.app',
+    github: 'https://porto-zhofran.vercel.app',
     demo: null,
+    image: imgPorto,
   },
   {
     featured: false,
@@ -17,23 +21,17 @@ const projects = [
     tech: ['Figma'],
     github: 'https://www.figma.com/proto/h2lI7pgRUxDzzXliWzuMRQ/YAUDA-AJE-FINDIT?node-id=472-2718&t=O35l0UJIIfsxolaO-1&scaling=scale-down&content-scaling=fixed&page-id=41%3A132&starting-point-node-id=243%3A958&show-proto-sidebar=1',
     demo: null,
+    image: imgTaskfine,
   },
-//   {
-//     featured: false,
-//     title: 'Store Sales System',
-//     desc: 'Point of sale system with inventory tracking and sales reporting features.',
-//     tech: ['PHP', 'MySQL', 'Bootstrap'],
-//     github: 'https://github.com/muhammadzhofran',
-//     demo: null,
-//   },
-//   {
-//     featured: false,
-//     title: 'Janji Jiwa Information System Analysis',
-//     desc: 'System analysis and design project for a coffee chain franchise information system.',
-//     tech: ['System Design', 'UML', 'ERD'],
-//     github: 'https://github.com/muhammadzhofran',
-//     demo: null,
-//   },
+  {
+    featured: false,
+    title: 'Bookshelf',
+    desc: 'A desktop application for managing personal book collections, tracking reading progress, rating books, and viewing collection statistics.',
+    tech: ['Java'],
+    github: 'https://github.com/Zhofran27/Project-Bookshelf',
+    demo: null,
+    image: imgBookshelf,
+  },
 ]
 
 const techColors = {
@@ -45,6 +43,8 @@ const techColors = {
   'MySQL': '#3B82F6',
   'PHP': '#8B5CF6',
   'Bootstrap': '#8B5CF6',
+  'Figma': '#F472B6',
+  'JavaScript': '#F59E0B',
   'System Design': '#F59E0B',
   'UML': '#F59E0B',
   'ERD': '#F59E0B',
@@ -58,10 +58,14 @@ function ProjectCard({ project, index }) {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -4 }}
-      className="p-6 rounded-2xl flex flex-col justify-between transition-all duration-300 h-full"
       style={{
         backgroundColor: 'rgba(255,255,255,0.03)',
         border: '1px solid rgba(255,255,255,0.07)',
+        borderRadius: '20px',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'all 0.3s',
       }}
       onMouseEnter={e => {
         e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'
@@ -72,17 +76,41 @@ function ProjectCard({ project, index }) {
         e.currentTarget.style.boxShadow = 'none'
       }}
     >
-      <div>
-        <h3 className="font-bold text-white text-lg mb-3">{project.title}</h3>
-        <p className="text-sm leading-relaxed mb-4" style={{ color: '#71717A' }}>
+      {/* Image */}
+      <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden' }}>
+        <img
+          src={project.image}
+          alt={project.title}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            transition: 'transform 0.4s ease',
+          }}
+          onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+          onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+        />
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+        <h3 style={{ fontWeight: '700', color: '#FAFAFA', fontSize: '16px', marginBottom: '8px' }}>
+          {project.title}
+        </h3>
+        <p style={{ fontSize: '13px', lineHeight: '1.6', color: '#71717A', marginBottom: '16px', flex: 1 }}>
           {project.desc}
         </p>
-        <div className="flex flex-wrap gap-2 mb-6">
+
+        {/* Tech Badges */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
           {project.tech.map(t => (
             <span
               key={t}
-              className="px-2 py-1 rounded-md text-xs font-medium"
               style={{
+                padding: '4px 10px',
+                borderRadius: '6px',
+                fontSize: '11px',
+                fontWeight: '500',
                 backgroundColor: (techColors[t] || '#3B82F6') + '15',
                 color: techColors[t] || '#3B82F6',
                 border: `1px solid ${techColors[t] || '#3B82F6'}30`,
@@ -92,38 +120,54 @@ function ProjectCard({ project, index }) {
             </span>
           ))}
         </div>
-      </div>
 
-      <div className="flex items-center gap-3">
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
-          style={{
-            backgroundColor: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            color: '#A1A1AA',
-          }}
-          onMouseEnter={e => e.currentTarget.style.color = '#FAFAFA'}
-          onMouseLeave={e => e.currentTarget.style.color = '#A1A1AA'}
-        >
-          <FiGithub size={14} /> GitHub
-        </a>
-        {project.demo && (
+        {/* Links */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <a
-            href={project.demo}
+            href={project.github}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
             style={{
-              backgroundColor: '#3B82F6',
-              color: '#FAFAFA',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '8px 16px',
+              borderRadius: '10px',
+              fontSize: '13px',
+              fontWeight: '500',
+              backgroundColor: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              color: '#A1A1AA',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
             }}
+            onMouseEnter={e => e.currentTarget.style.color = '#FAFAFA'}
+            onMouseLeave={e => e.currentTarget.style.color = '#A1A1AA'}
           >
-            <FiExternalLink size={14} /> Live Demo
+            <FiGithub size={13} /> GitHub
           </a>
-        )}
+          {project.demo && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                padding: '8px 16px',
+                borderRadius: '10px',
+                fontSize: '13px',
+                fontWeight: '500',
+                backgroundColor: '#3B82F6',
+                color: '#FAFAFA',
+                textDecoration: 'none',
+              }}
+            >
+              <FiExternalLink size={13} /> Live Demo
+            </a>
+          )}
+        </div>
       </div>
     </motion.div>
   )
@@ -134,17 +178,15 @@ function Projects() {
   const rest = projects.filter(p => !p.featured)
 
   return (
-    <section id="projects" className="px-6 py-32">
-      <div className="max-w-6xl mx-auto">
+    <section id="projects" style={{ padding: '128px 24px' }}>
+      <div style={{ maxWidth: '72rem', margin: '0 auto' }}>
 
         {/* Label */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-xs font-semibold tracking-widest uppercase mb-4"
-          style={{ color: '#3B82F6' }}
+          style={{ color: '#3B82F6', fontSize: '11px', fontWeight: '600', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '16px' }}
         >
           Featured Work
         </motion.p>
@@ -154,9 +196,8 @@ function Projects() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl md:text-6xl font-bold mb-4"
-          style={{ color: '#FAFAFA' }}
+          transition={{ delay: 0.1 }}
+          style={{ fontSize: 'clamp(36px, 6vw, 64px)', fontWeight: '800', color: '#FAFAFA', marginBottom: '16px', lineHeight: '1.1' }}
         >
           Selected projects.
         </motion.h2>
@@ -165,24 +206,26 @@ function Projects() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-lg max-w-2xl mb-16 leading-relaxed"
-          style={{ color: '#71717A' }}
+          transition={{ delay: 0.2 }}
+          style={{ fontSize: '18px', color: '#71717A', marginBottom: '64px', maxWidth: '560px', lineHeight: '1.7' }}
         >
-          A mix of academic and personal builds full-stack web apps, Java desktop
+          A mix of academic and personal builds — full-stack web apps, Java desktop
           systems, and information system design.
         </motion.p>
 
-        {/* Featured Project */}
+        {/* Featured Project — dengan gambar */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl p-8 mb-4 transition-all duration-300"
           style={{
             backgroundColor: 'rgba(255,255,255,0.03)',
             border: '1px solid rgba(255,255,255,0.07)',
+            borderRadius: '20px',
+            overflow: 'hidden',
+            marginBottom: '16px',
+            transition: 'all 0.3s',
           }}
           onMouseEnter={e => {
             e.currentTarget.style.borderColor = 'rgba(59,130,246,0.4)'
@@ -193,52 +236,79 @@ function Projects() {
             e.currentTarget.style.boxShadow = 'none'
           }}
         >
-          <span
-            className="text-xs font-semibold tracking-widest uppercase mb-4 block"
-            style={{ color: '#3B82F6' }}
-          >
-            Featured Project
-          </span>
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            {featured.title}
-          </h3>
-          <p className="text-base leading-relaxed mb-6 max-w-2xl" style={{ color: '#71717A' }}>
-            {featured.desc}
-          </p>
-          <div className="flex flex-wrap gap-2 mb-6">
-            {featured.tech.map(t => (
-              <span
-                key={t}
-                className="px-3 py-1 rounded-lg text-sm font-medium"
-                style={{
-                  backgroundColor: (techColors[t] || '#3B82F6') + '15',
-                  color: techColors[t] || '#3B82F6',
-                  border: `1px solid ${techColors[t] || '#3B82F6'}30`,
-                }}
-              >
-                {t}
-              </span>
-            ))}
+          {/* Featured Image */}
+          <div style={{ width: '100%', aspectRatio: '16/9', overflow: 'hidden', maxHeight: '400px' }}>
+            <img
+              src={featured.image}
+              alt={featured.title}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                transition: 'transform 0.4s ease',
+              }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+            />
           </div>
-          <a
-            href={featured.github}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200"
-            style={{
-              backgroundColor: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              color: '#A1A1AA',
-            }}
-            onMouseEnter={e => e.currentTarget.style.color = '#FAFAFA'}
-            onMouseLeave={e => e.currentTarget.style.color = '#A1A1AA'}
-          >
-            <FiGithub size={14} /> View on GitHub
-          </a>
+
+          {/* Featured Content */}
+          <div style={{ padding: '32px' }}>
+            <span style={{ color: '#3B82F6', fontSize: '11px', fontWeight: '600', letterSpacing: '0.15em', textTransform: 'uppercase', display: 'block', marginBottom: '12px' }}>
+              Featured Project
+            </span>
+            <h3 style={{ fontSize: '28px', fontWeight: '800', color: '#FAFAFA', marginBottom: '12px' }}>
+              {featured.title}
+            </h3>
+            <p style={{ fontSize: '15px', lineHeight: '1.7', color: '#71717A', marginBottom: '20px', maxWidth: '640px' }}>
+              {featured.desc}
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
+              {featured.tech.map(t => (
+                <span
+                  key={t}
+                  style={{
+                    padding: '6px 14px',
+                    borderRadius: '8px',
+                    fontSize: '13px',
+                    fontWeight: '500',
+                    backgroundColor: (techColors[t] || '#3B82F6') + '15',
+                    color: techColors[t] || '#3B82F6',
+                    border: `1px solid ${techColors[t] || '#3B82F6'}30`,
+                  }}
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <a
+              href={featured.github}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 20px',
+                borderRadius: '12px',
+                fontSize: '14px',
+                fontWeight: '500',
+                backgroundColor: 'rgba(255,255,255,0.05)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                color: '#A1A1AA',
+                textDecoration: 'none',
+                transition: 'all 0.2s',
+              }}
+              onMouseEnter={e => e.currentTarget.style.color = '#FAFAFA'}
+              onMouseLeave={e => e.currentTarget.style.color = '#A1A1AA'}
+            >
+              <FiGithub size={14} /> View on GitHub
+            </a>
+          </div>
         </motion.div>
 
         {/* Other Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
           {rest.map((project, i) => (
             <ProjectCard key={project.title} project={project} index={i} />
           ))}

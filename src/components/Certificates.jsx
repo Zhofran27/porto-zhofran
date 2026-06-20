@@ -9,15 +9,16 @@ const certificates = [
     year: '2026',
   },
   {
+    title: 'Full Stack Next JS : Realtime Point Of Sale Apps',
+    issuer: 'WPU Course',
+    year: '2026',
+  },
+  {
     title: 'Certification Scheme for Occupation of Junior Coder',
     issuer: 'Badan Nasional Sertifikasi Profesi (BNSP)',
     year: '2024 - 2027',
   },
-//   {
-//     title: 'React for Beginners',
-//     issuer: 'Dicoding',
-//     year: '2024',
-//   },
+  
 //   {
 //     title: 'Database Design',
 //     issuer: 'Coursera',

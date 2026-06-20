@@ -15,14 +15,8 @@ function Footer() {
 
         {/* Left */}
         <div className="flex items-center gap-3">
-          <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white"
-            style={{ background: 'linear-gradient(135deg, #3B82F6, #8B5CF6)' }}
-          >
-            MZ
-          </div>
           <p className="text-sm" style={{ color: '#52525B' }}>
-            © 2026 Muhammad Zhofran. All rights reserved.
+            © 2026 Muhammad Zhofran.
           </p>
         </div>
 

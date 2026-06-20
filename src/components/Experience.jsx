@@ -3,6 +3,12 @@ import { motion } from 'framer-motion'
 const experiences = [
   {
     year: '2026',
+    role: 'Project Officer',
+    org: 'PKKMBF-IK 2026',
+    desc: 'Leading a committee of 84 organizing members in planning and executing PKKMB FIK 2026, an orientation program designed to welcome and support approximately 650 incoming students of the Faculty of Computer Sciences.',
+  },
+  {
+    year: '2026',
     role: 'Head of Human Resources Development',
     org: 'BEM Fakultas Ilmu Komputer UPNVJ',
     desc: 'Led external communications and partnership outreach for the faculty\'s flagship event.',

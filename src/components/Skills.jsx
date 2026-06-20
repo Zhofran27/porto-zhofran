@@ -17,7 +17,7 @@ const skillGroups = [
     icon: <FiServer size={24} />,
     color: '#8B5CF6',
     description: 'Crafting server-side logic and REST APIs.',
-    skills: ['Node.js', 'Express.js', 'PHP', 'Laravel'],
+    skills: ['Node.js', 'Express.js', 'PHP', 'Laravel', 'Java'],
     colSpan: 1,
   },
   {
@@ -33,7 +33,7 @@ const skillGroups = [
     icon: <FiTool size={24} />,
     color: '#F59E0B',
     description: 'Tools I use daily to ship products.',
-    skills: ['Git', 'GitHub', 'Figma', 'VS Code', 'Postman'],
+    skills: ['Git', 'GitHub', 'Figma', 'VS Code', 'Postman', 'Android Studio'],
     colSpan: 2,
   },
 ]
