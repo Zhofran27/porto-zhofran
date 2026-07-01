@@ -1,16 +1,27 @@
 import { motion } from 'framer-motion'
 import { FiGithub, FiExternalLink } from 'react-icons/fi'
+import { SiFigma } from 'react-icons/si'
 import imgPorto from '../assets/project-porto.png'
 import imgTaskfine from '../assets/project-taskfine.png'
 import imgBookshelf from '../assets/project-bookshelf.png'
+import imgLinuks from '../assets/project-linuks.png'
 
 const projects = [
   {
     featured: true,
+    title: 'LINUKS',
+    desc: 'A full-stack campus reporting platform that enables students to securely report sexual violence cases, access educational resources, and receive support through a role-based management system.',
+    tech: ['Next.js', 'React', 'Express', 'Tailwind CSS', 'PostgreSQL', 'MongoDB'],
+    link: { url: 'https://linuks-web.vercel.app', type: 'live' },
+    demo: null,
+    image: imgLinuks,
+  },
+  {
+    featured: false,
     title: 'Personal Portofolio',
     desc: 'Developed and deployed a responsive personal portfolio website to showcase projects, technical skills, certifications, and professional experiences.',
     tech: ['React', 'JavaScript', 'Tailwind CSS'],
-    github: 'https://porto-zhofran.vercel.app',
+    link: { url: 'https://portozhofran.my.id', type: 'live' },
     demo: null,
     image: imgPorto,
   },
@@ -19,7 +30,10 @@ const projects = [
     title: 'Taskfine',
     desc: 'Designed a task management application that leverages AI to help users organize, prioritize, and manage tasks more efficiently.',
     tech: ['Figma'],
-    github: 'https://www.figma.com/proto/h2lI7pgRUxDzzXliWzuMRQ/YAUDA-AJE-FINDIT?node-id=472-2718&t=O35l0UJIIfsxolaO-1&scaling=scale-down&content-scaling=fixed&page-id=41%3A132&starting-point-node-id=243%3A958&show-proto-sidebar=1',
+    link: {
+      url: 'https://www.figma.com/proto/h2lI7pgRUxDzzXliWzuMRQ/YAUDA-AJE-FINDIT?node-id=472-2718&t=O35l0UJIIfsxolaO-1&scaling=scale-down&content-scaling=fixed&page-id=41%3A132&starting-point-node-id=243%3A958&show-proto-sidebar=1',
+      type: 'figma',
+    },
     demo: null,
     image: imgTaskfine,
   },
@@ -28,7 +42,7 @@ const projects = [
     title: 'Bookshelf',
     desc: 'A desktop application for managing personal book collections, tracking reading progress, rating books, and viewing collection statistics.',
     tech: ['Java'],
-    github: 'https://github.com/Zhofran27/Project-Bookshelf',
+    link: { url: 'https://github.com/Zhofran27/Project-Bookshelf', type: 'github' },
     demo: null,
     image: imgBookshelf,
   },
@@ -48,6 +62,65 @@ const techColors = {
   'System Design': '#F59E0B',
   'UML': '#F59E0B',
   'ERD': '#F59E0B',
+}
+
+// Mapping tipe link ke icon dan label yang sesuai
+const linkMeta = {
+  github: { icon: FiGithub, label: 'GitHub' },
+  live: { icon: FiExternalLink, label: 'Live Site' },
+  figma: { icon: SiFigma, label: 'Figma' },
+}
+
+function ProjectLinkButton({ link, variant = 'card' }) {
+  const meta = linkMeta[link.type] || linkMeta.github
+  const LinkIcon = meta.icon
+
+  const cardStyle = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '6px',
+    padding: '8px 16px',
+    borderRadius: '10px',
+    fontSize: '13px',
+    fontWeight: '500',
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    color: '#A1A1AA',
+    textDecoration: 'none',
+    transition: 'all 0.2s',
+  }
+
+  const featuredStyle = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '8px',
+    padding: '10px 20px',
+    borderRadius: '12px',
+    fontSize: '14px',
+    fontWeight: '500',
+    backgroundColor: 'rgba(255,255,255,0.05)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    color: '#A1A1AA',
+    textDecoration: 'none',
+    transition: 'all 0.2s',
+  }
+
+  const style = variant === 'featured' ? featuredStyle : cardStyle
+  const iconSize = variant === 'featured' ? 14 : 13
+  const label = variant === 'featured' ? `View ${meta.label}` : meta.label
+
+  return (
+    <a
+      href={link.url}
+      target="_blank"
+      rel="noreferrer"
+      style={style}
+      onMouseEnter={e => e.currentTarget.style.color = '#FAFAFA'}
+      onMouseLeave={e => e.currentTarget.style.color = '#A1A1AA'}
+    >
+      <LinkIcon size={iconSize} /> {label}
+    </a>
+  )
 }
 
 function ProjectCard({ project, index }) {
@@ -123,29 +196,7 @@ function ProjectCard({ project, index }) {
 
         {/* Links */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noreferrer"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              padding: '8px 16px',
-              borderRadius: '10px',
-              fontSize: '13px',
-              fontWeight: '500',
-              backgroundColor: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.1)',
-              color: '#A1A1AA',
-              textDecoration: 'none',
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={e => e.currentTarget.style.color = '#FAFAFA'}
-            onMouseLeave={e => e.currentTarget.style.color = '#A1A1AA'}
-          >
-            <FiGithub size={13} /> GitHub
-          </a>
+          <ProjectLinkButton link={project.link} variant="card" />
           {project.demo && (
             <a
               href={project.demo}
@@ -209,7 +260,7 @@ function Projects() {
           transition={{ delay: 0.2 }}
           style={{ fontSize: '18px', color: '#71717A', marginBottom: '64px', maxWidth: '560px', lineHeight: '1.7' }}
         >
-          A mix of academic and personal builds — full-stack web apps, Java desktop
+          A mix of academic and personal builds full-stack web apps, Java desktop
           systems, and information system design.
         </motion.p>
 
@@ -281,29 +332,7 @@ function Projects() {
                 </span>
               ))}
             </div>
-            <a
-              href={featured.github}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '10px 20px',
-                borderRadius: '12px',
-                fontSize: '14px',
-                fontWeight: '500',
-                backgroundColor: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                color: '#A1A1AA',
-                textDecoration: 'none',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={e => e.currentTarget.style.color = '#FAFAFA'}
-              onMouseLeave={e => e.currentTarget.style.color = '#A1A1AA'}
-            >
-              <FiGithub size={14} /> View on GitHub
-            </a>
+            <ProjectLinkButton link={featured.link} variant="featured" />
           </div>
         </motion.div>
 
